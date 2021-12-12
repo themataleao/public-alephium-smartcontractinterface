@@ -1,0 +1,1 @@
+docker-compose up -f docker-compose.yml -f docker-compose.smart-contract.yml
