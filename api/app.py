@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, Response
 import requests
 from werkzeug.utils import redirect
 
@@ -28,18 +28,8 @@ def unlock():
 
 @app.route('/')
 def compileForm():
-    global address
-    global walletName
-    global balance
 
-    walletName, address, balance = getWalletAddresses()
-
-    if type(address) == bool and not (address):
-        address = "No address set"
-        walletName = "No wallet set"
-        balance = 0
-
-    return render_template('compile.html', address=address.strip(), walletName=walletName, balance=balance)
+    return Response("What is happening", 200)
 
 
 @app.route('/', methods=['POST'])
