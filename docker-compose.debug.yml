@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  api:
+    volumes:
+      - ./api:/app
+  frontend:
+    build:
+      target: debug
+    volumes:
+      - ./frontend/src:/frontend/src
+    ports:
+      - 3000:3000

@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
 
 
 export default function WalletSelection() {
@@ -20,6 +16,7 @@ export default function WalletSelection() {
                 />
 
             </FormControl>
+
 
         </Box>
     )

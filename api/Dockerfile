@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3 as base
 
 COPY ./requirements.txt /app/requirements.txt
 
@@ -8,7 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
 
-ENV FLASK_ENV=development
-ENV FLASK_DEBUG=1
+EXPOSE 5000
 
-ENTRYPOINT [ "flask", "run" ]
+ENTRYPOINT [ "gunicorn", "app:app" ]

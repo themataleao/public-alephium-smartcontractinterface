@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid';
 import MiddleGrid from './Layout/MiddleGrid';
 import Header from './Layout/Header';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './App.css';
 
 declare module '@mui/material/styles' {

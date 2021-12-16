@@ -1,6 +1,6 @@
 reload=True
 # https://github.com/benoitc/gunicorn/blob/master/examples/example_config.py
-bind = ':5001'
+bind = ':5000'
 # Use one worker for GPU models
 workers = 1
 threads = 1

@@ -1,29 +1,38 @@
 import json
 
+from requests.sessions import Request
+
 from flask import Flask, request, render_template, Response
 import requests
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
 
-API_BASE = "http://127.0.0.1:12973"
+API_BASE = "http://alephium:12973"
 
 walletName = ""
 address = ""
 balance = 0
 
-@app.route('/unlock',methods=['POST'])
-def unlock():
-    name = request.form['wname']
-    password = request.form['wpassword']
+@app.route('/api/wallets', methods=['GET'])
+def wallets():
+    wallets = requests.get(f'{API_BASE}/wallets')
+    print(wallets.text)
+    return Response(wallets.text,200)
 
-    headers = {"Content-Type": "application/json; charset=utf-8"}
-    wallet = requests.post(f'{API_BASE}/wallets/{name}/unlock', headers=headers,json={"password": password})
+@app.route('/api/unlock',methods=['POST'])
+def unlock_wallet():
+    # name = request.args.get('walletName')
+    # # password = request.args.get('wpassword')
+    # print(name)
 
-    if wallet.ok:
-       return redirect("/")
+    # headers = {"Content-Type": "application/json; charset=utf-8"}
+    # wallet = requests.post(f'{API_BASE}/wallets/{name}/unlock', headers=headers,json={"password": "test-user-1"})
+    # print(wallet.ok)
+    if True:
+       return Response(200)
     else:
-        return f"Wrong password: {wallet.text}"
+        return Response(500)
 
 
 @app.route('/')

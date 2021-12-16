@@ -8,10 +8,10 @@ export default function HeaderComponent() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <img width={'50vh'} src={"/static/alephium-icon.png"}></img>
+                    <img alt='alephium-icon' width={'50vh'} src={"/static/alephium-icon.png"}></img>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Alephium Smart Contract Builder
-          </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
         </Box>
