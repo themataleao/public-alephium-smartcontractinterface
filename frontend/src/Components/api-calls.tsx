@@ -14,8 +14,8 @@ const getWallets = async () => {
 
 const unlockWallet = async (walletName: String, wpassword: String) => {
     var params = {
-        "walletName": walletName,
-        "wpassword": wpassword
+        "walletName": `${walletName}`,
+        "wpassword": `${wpassword}`
     };
 
     var config = {

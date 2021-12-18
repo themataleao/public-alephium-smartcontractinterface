@@ -10,10 +10,6 @@ app = Flask(__name__)
 
 API_BASE = "http://alephium:12973"
 
-walletName = ""
-address = ""
-balance = 0
-
 @app.route('/api/wallets', methods=['GET'])
 def wallets():
     wallets = requests.get(f'{API_BASE}/wallets')
@@ -21,18 +17,17 @@ def wallets():
     return Response(wallets.text,200)
 
 @app.route('/api/unlock',methods=['POST'])
-def unlock_wallet():
-    # name = request.args.get('walletName')
-    # # password = request.args.get('wpassword')
-    # print(name)
+def unlock_wallet_yes():
+    name = request.args.get('walletName')
+    password = request.args.get('wpassword')
+    print(name, password)
 
-    # headers = {"Content-Type": "application/json; charset=utf-8"}
-    # wallet = requests.post(f'{API_BASE}/wallets/{name}/unlock', headers=headers,json={"password": "test-user-1"})
-    # print(wallet.ok)
-    if True:
-       return Response(200)
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    wallet = requests.post(f'{API_BASE}/wallets/{name}/unlock', headers=headers,json={"password": password})
+    if wallet.ok:
+       return Response("wallet unlocked...",200)
     else:
-        return Response(500)
+        return Response("wrong password...",404)
 
 
 @app.route('/')

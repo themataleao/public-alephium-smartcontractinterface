@@ -27,6 +27,10 @@ const headerTheme = createTheme({
   }
 })
 
+const middleTheme = createTheme({
+
+})
+
 
 function App() {
   return (
@@ -35,14 +39,16 @@ function App() {
         <ThemeProvider theme={headerTheme}>
           <Header></Header>
         </ThemeProvider>
-        <Grid
-          container
-          direction='column'
-          alignItems='center'
-          justifyContent='center'
-          style={{ minHeight: '100vh' }}>
-          <MiddleGrid></MiddleGrid>
-        </Grid>
+        <ThemeProvider theme={middleTheme}>
+          <Grid
+            container
+            direction='column'
+            alignItems='center'
+            justifyContent='center'
+            style={{ minHeight: '100vh' }}>
+            <MiddleGrid></MiddleGrid>
+          </Grid>
+        </ThemeProvider>
       </Box>
     </div>
   );
