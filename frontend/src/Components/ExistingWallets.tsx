@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { getWallets, unlockWallet } from './api-calls';
+import { Context } from '../State/Store';
 
 export default function ExistingWallets() {
     const [wallets, setWallets] = useState([]);
@@ -14,71 +12,69 @@ export default function ExistingWallets() {
     const [wpassword, setWpassword] = useState("")
     const [helperTextPassword, setHelperTextPassword] = useState("")
     const [isErrorPassword, setIsErrorPassword] = useState(false)
-
-    const handleChange = (event: any) => {
-        setSelectedWallet(event.target.value);
-    };
+    const [state, dispatch] = useContext(Context);
 
     useEffect(() => {
         getWallets().then(
             response => {
                 setWallets(response.data)
+                dispatch({ type: "SET_WALLETS", payload: response.data })
             }
         ).catch(
             error => console.log(error)
         )
         // eslint-disable-next-line
-    }, [])
+    }, [helperTextPassword])
 
     const unlockWalletHandler = () => {
         unlockWallet(selectedWallet, wpassword).then(
             response => {
                 if (response.status === 200) {
-                    console.log(response.status)
+                    setIsErrorPassword(false)
+                    setHelperTextPassword("Wallet unlocked")
+
+                }
+                else {
+                    setIsErrorPassword(true)
+                    setHelperTextPassword("Wrong password")
                 }
             }
         ).catch(
-            error => console.log("lego", error.status)
+            error => console.log("error: ", error.status)
         )
     }
 
     return (
         <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth margin='normal'>
-                <Box style={{ paddingBlock: 20, width: "40%" }}>
-                    <InputLabel id="wallet Selection">Wallet</InputLabel>
-                    <Select
-                        labelId="wallet-selection"
-                        id="wallet-selection"
-                        style={{ width: "100%" }}
-                        defaultValue={selectedWallet}
-                        value={selectedWallet}
-                        label="Wallet"
-                        onChange={handleChange}
-                    >
-                        {wallets.map((item: any) => {
-                            return <MenuItem
-                                key={item.walletName}
-                                value={item.walletName}>{item.walletName}</MenuItem>
-                        })}
-                    </Select>
-                </Box>
-                <div style={{ paddingBlock: 20, width: "100%" }}>
-                    <TextField
-                        error={isErrorPassword}
-                        style={{ width: '40%' }}
-                        id="wallet-password"
-                        label="Password"
-                        onChange={(event) => setWpassword(event.target.value)}
-                        defaultValue="Password"
-                        value={wpassword}
-                        helperText={helperTextPassword}
-                    />
-                </div>
-                <Button
-                    variant="outlined"
-                    onClick={unlockWalletHandler}>Unlock</Button>
-            </FormControl>
+            <Box>
+                <TextField
+                    select
+                    style={{ width: '40%' }}
+                    label="wallet"
+                    onChange={(event) => setSelectedWallet(event.target.value)}>
+                    {wallets.map((item: any) => {
+                        var lockedOrNot = item.locked ? "locked" : "unlocked"
+                        return <MenuItem
+                            key={item.walletName}
+                            value={item.walletName}>{`${item.walletName} (${lockedOrNot})`}</MenuItem>
+                    })}
+                </TextField>
+            </Box>
+            <Box style={{ paddingBlock: 20, width: "100%" }}>
+                <TextField
+                    error={isErrorPassword}
+                    style={{ width: '40%' }}
+                    id="wallet-password"
+                    label="Password"
+                    onChange={(event) => setWpassword(event.target.value)}
+                    defaultValue="Password"
+                    value={wpassword}
+                    helperText={helperTextPassword}
+                />
+            </Box>
+            <Button
+                variant="outlined"
+                onClick={unlockWalletHandler}>Unlock</Button>
         </Box>
     );
 }

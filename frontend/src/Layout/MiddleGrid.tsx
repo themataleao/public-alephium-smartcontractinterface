@@ -1,13 +1,13 @@
 import Grid from '@mui/material/Grid';
-import WalletSelection from '../Components/WalletSelection';
+import SmartContractSection from '../Components/SmartContractSection';
 import ExistingWallets from '../Components/ExistingWallets';
 
 
 export default function MiddleGrid() {
     return (
-        <Grid item xs={12} style={{ width: "50vw" }}>
+        <Grid item xs={12} style={{ width: "90vw" }}>
             <ExistingWallets></ExistingWallets>
-            <WalletSelection></WalletSelection>
+            <SmartContractSection></SmartContractSection>
         </Grid>
     )
 }

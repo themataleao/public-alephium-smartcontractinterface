@@ -1,5 +1,5 @@
 # pull official base image for the first build step
-FROM node:16-alpine as base
+FROM node:14-alpine as base
 
 # add `/app/node_modules/.bin` to $PATH
 # Change the workdir to a seperate folder
