@@ -1,9 +1,14 @@
 import { createContext, useReducer, Dispatch } from "react";
 import reducer from "./Reducer";
+import { TypeWalletBuild, TypeUnsignedTransaction, CompletedTransaction } from './Types';
 
 interface State {
     test: string;
     wallets: object;
+    code: string;
+    selectedWallet: TypeWalletBuild;
+    unsignedContractTransaction: TypeUnsignedTransaction;
+    completedTransaction: CompletedTransaction;
 }
 
 interface Action {
@@ -13,7 +18,11 @@ interface Action {
 
 const initialState = {
     test: "test",
-    wallets: {}
+    wallets: [],
+    code: "",
+    selectedWallet: {},
+    unsignedContractTransaction: {},
+    completedTransaction: {}
 }
 
 function Store({ children }: any) {

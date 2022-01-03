@@ -46,8 +46,7 @@ function App() {
               container
               direction='column'
               alignItems='center'
-              justifyContent='center'
-              style={{ minHeight: '100vh' }}>
+              justifyContent='center'>
               <MiddleGrid></MiddleGrid>
             </Grid>
           </ThemeProvider>

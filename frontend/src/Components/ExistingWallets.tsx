@@ -5,30 +5,33 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { getWallets, unlockWallet } from './api-calls';
 import { Context } from '../State/Store';
+import { TypeWalletBuild } from '../State/Types';
 
 export default function ExistingWallets() {
     const [wallets, setWallets] = useState([]);
-    const [selectedWallet, setSelectedWallet] = useState("")
-    const [wpassword, setWpassword] = useState("")
+    const [selectedWallet, setSelectedWallet] = useState('');
+    const [wpassword, setWpassword] = useState("");
     const [helperTextPassword, setHelperTextPassword] = useState("")
     const [isErrorPassword, setIsErrorPassword] = useState(false)
-    const [state, dispatch] = useContext(Context);
+    const [unlockStateChange, setUnlockStateChange] = useState(true);
+    const [, dispatch] = useContext(Context);
 
     useEffect(() => {
         getWallets().then(
             response => {
-                setWallets(response.data)
-                dispatch({ type: "SET_WALLETS", payload: response.data })
+                setWallets(response)
+                dispatch({ type: "SET_WALLETS", payload: response })
             }
         ).catch(
-            error => console.log(error)
+            error => console.error(error)
         )
         // eslint-disable-next-line
-    }, [helperTextPassword])
+    }, [unlockStateChange])
 
     const unlockWalletHandler = () => {
         unlockWallet(selectedWallet, wpassword).then(
             response => {
+                setUnlockStateChange(!unlockStateChange)
                 if (response.status === 200) {
                     setIsErrorPassword(false)
                     setHelperTextPassword("Wallet unlocked")
@@ -40,18 +43,25 @@ export default function ExistingWallets() {
                 }
             }
         ).catch(
-            error => console.log("error: ", error.status)
+            error => console.error("error: ", error.status)
         )
+    }
+
+    const selectWalletHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedWallet(event.target.value)
+        let obj = wallets.find((wallet: TypeWalletBuild) => wallet.walletName === event.target.value);
+        dispatch({ type: 'SET_SELECTED_WALLET', payload: obj })
     }
 
     return (
         <Box sx={{ minWidth: 120 }}>
-            <Box>
+            <Box sx={{ pt: 5 }}>
                 <TextField
                     select
                     style={{ width: '40%' }}
                     label="wallet"
-                    onChange={(event) => setSelectedWallet(event.target.value)}>
+                    value={selectedWallet}
+                    onChange={selectWalletHandler}>
                     {wallets.map((item: any) => {
                         var lockedOrNot = item.locked ? "locked" : "unlocked"
                         return <MenuItem
@@ -67,7 +77,6 @@ export default function ExistingWallets() {
                     id="wallet-password"
                     label="Password"
                     onChange={(event) => setWpassword(event.target.value)}
-                    defaultValue="Password"
                     value={wpassword}
                     helperText={helperTextPassword}
                 />
