@@ -1,8 +1,5 @@
 version: "3.3"
 services:
-  api:
-    volumes:
-      - ./api:/app
   frontend:
     build:
       target: debug

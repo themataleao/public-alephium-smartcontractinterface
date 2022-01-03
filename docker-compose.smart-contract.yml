@@ -1,11 +1,5 @@
 version: "3.3"
 services:
-  api:
-    build:
-      context: ./api
-      target: base
-    ports:
-      - 5001:5001
   frontend:
     build:
       context: ./frontend
