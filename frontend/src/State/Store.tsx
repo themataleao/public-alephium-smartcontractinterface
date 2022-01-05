@@ -4,7 +4,7 @@ import { TypeWalletBuild, TypeUnsignedTransaction, CompletedTransaction } from '
 
 interface State {
     test: string;
-    wallets: object;
+    wallets: any;
     code: string;
     selectedWallet: TypeWalletBuild;
     unsignedContractTransaction: TypeUnsignedTransaction;

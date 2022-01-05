@@ -8,7 +8,7 @@ import { Context } from '../State/Store';
 import { TypeWalletBuild } from '../State/Types';
 
 export default function ExistingWallets() {
-    const [wallets, setWallets] = useState([]);
+    const [wallets, setWallets] = useState<any>([]);
     const [selectedWallet, setSelectedWallet] = useState('');
     const [wpassword, setWpassword] = useState("");
     const [helperTextPassword, setHelperTextPassword] = useState("")

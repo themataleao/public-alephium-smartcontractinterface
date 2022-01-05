@@ -4,5 +4,10 @@ services:
     build:
       context: ./frontend
       target: production
+      args:
+        REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+        REACT_APP_API_KEY: ${REACT_APP_API_KEY}
     env_file:
       - .env
+    ports:
+      - 80:80
