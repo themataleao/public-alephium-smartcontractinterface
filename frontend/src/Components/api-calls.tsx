@@ -1,13 +1,12 @@
 import { TypeWalletBuild, TypeUnsignedTransaction } from '../State/Types';
 const axios = require('axios');
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const getWallets = async () => {
     var config = {
         method: 'get',
-        url: `${BASE_URL}/wallets`,
+        url: `/wallets`,
         headers: {
             'X-API-KEY': `${API_KEY}`
         }
@@ -54,7 +53,7 @@ const unlockWallet = async (walletName: String, walletPassword: String) => {
 
     var config = {
         method: 'post',
-        url: `${BASE_URL}/wallets/${walletName}/unlock`,
+        url: `/wallets/${walletName}/unlock`,
         headers: {
             'Content-Type': 'application/json',
             'X-API-KEY': API_KEY
@@ -79,7 +78,7 @@ const compileContract = async (contractCode: String) => {
     });
     var config = {
         method: 'post',
-        url: `${BASE_URL}/contracts/compile-contract`,
+        url: `/contracts/compile-contract`,
         headers: {
             'Content-Type': 'application/json',
             'X-API-KEY': API_KEY
@@ -99,7 +98,7 @@ const compileContract = async (contractCode: String) => {
 const getWalletAddress = async (walletName: String) => {
     var config = {
         method: 'get',
-        url: `${BASE_URL}/wallets/${walletName}/addresses`,
+        url: `/wallets/${walletName}/addresses`,
         headers: { 'X-API-KEY': API_KEY }
     };
     try {
@@ -116,7 +115,7 @@ const getWalletAddress = async (walletName: String) => {
 const getWalletPrivateKey = async (walletName: String, walletAddress: String) => {
     var config = {
         method: 'get',
-        url: `${BASE_URL}/wallets/${walletName}/addresses/${walletAddress}`,
+        url: `/wallets/${walletName}/addresses/${walletAddress}`,
         headers: { 'X-API-KEY': API_KEY }
     };
     try {
@@ -161,7 +160,7 @@ const buildUnsignedTransaction = async (wallet: TypeWalletBuild, code: String, g
     })
     var config = {
         method: 'post',
-        url: `${BASE_URL}/contracts/build-contract`,
+        url: `/contracts/build-contract`,
         headers: {
             'Content-Type': 'application/json',
             'X-API-KEY': API_KEY
@@ -184,7 +183,7 @@ const signContract = async (wallet: TypeWalletBuild, unsignedTransaction: TypeUn
     })
     var config = {
         method: 'post',
-        url: `${BASE_URL}/wallets/${wallet.walletName}/sign`,
+        url: `/wallets/${wallet.walletName}/sign`,
         headers: {
             'Content-Type': 'application/json',
             'X-API-KEY': API_KEY
@@ -209,7 +208,7 @@ const submitContract = async (unsignedTransaction: TypeUnsignedTransaction, sign
     })
     var config = {
         method: 'post',
-        url: `${BASE_URL}/transactions/submit`,
+        url: `/transactions/submit`,
         headers: {
             'Content-Type': 'application/json',
             'X-API-KEY': API_KEY
