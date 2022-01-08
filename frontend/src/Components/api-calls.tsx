@@ -11,7 +11,6 @@ const getWallets = async () => {
             'X-API-KEY': `${API_KEY}`
         }
     };
-    console.log(config)
     try {
         let response = await axios(config)
         var enhancedWallets = []
