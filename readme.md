@@ -25,7 +25,7 @@ chmod +x run-app-debug.sh # Give executable rights
 docker-compose -f docker-compose.yml -f docker-compose.smart-contract.yml up
 ```
 
-or run the `run-app-debug.sh`
+or run the `run-app.sh`
 
 ```bash
 chmod +x run-app.sh # Give executable rights
